@@ -25,14 +25,14 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/backend'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath) '
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'ARM_Connection'
     ensureBackend: true
-    backendAzureRmResourceGroupName: 'Snehal_RG_TF_file'
+    backendAzureRmResourceGroupName: 'Snehal_RG_TF_file_for_Pipeline'
     backendAzureRmResourceGroupLocation: 'Central US'
     backendAzureRmStorageAccountName: 'storageaccountfortffilepipeline'
-    backendAzureRmContainerName: 'tfstatefiles'
+    backendAzureRmContainerName: 'tfstatefilespipeline'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
   displayName: 'Kubernetes Cluster pipeline'
