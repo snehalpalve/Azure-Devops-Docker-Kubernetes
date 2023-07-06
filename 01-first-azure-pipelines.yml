@@ -6,19 +6,20 @@
 trigger:
 - main
 
-Jobs: 
-  Job1: 
-  steps:
-    - script: echo Hello, world! This is Job1
-      displayName: 'Run a one-line script'
+jobs: 
+  - job: job1 
+    steps:
+        - script: echo Hello, world! This is Job1
+          displayName: 'Run a one-line script'
 
-    - script: echo Add other tasks to build, test, and deploy your project.
-      displayName: 'Run a single-line script'
+        - script: echo Add other tasks to build, test, and deploy your project.
+          displayName: 'Run a single-line script'
 
-    - script: echo Another step in the pipeline
-      displayName: 'Run an additional script'
+        - script: echo Another step in the pipeline
+          displayName: 'Run an additional script'
 
-  Job2:
+  - job: job2
+    steps:
     - script: echo Hello, world! This is Job2
       displayName: 'Run a one-line script'
 
