@@ -1,0 +1,38 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+
+steps:
+- script: echo 'Running Terraform from the custom path...'
+  displayName: 'Run Terraform'
+
+- task: DownloadSecureFile@1
+  name: publickey
+  inputs:
+    secureFile: 'id_rsa.pub'
+  
+- bash: ls $(terraform-working-directory)
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/backend'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath) '
+    backendType: 'azurerm'
+    backendServiceArm: 'ARM_Connection'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'Snehal_RG_TF_file'
+    backendAzureRmResourceGroupLocation: 'Central US'
+    backendAzureRmStorageAccountName: 'storageaccountfortffilepipeline'
+    backendAzureRmContainerName: 'tfstatefiles'
+    backendAzureRmKey: 'kubernetes-dev.tfstate'
+    allowTelemetryCollection: true
+  displayName: 'Kubernetes Cluster pipeline'
